@@ -1,0 +1,24 @@
+{
+  "musics" :[
+    {
+      "auteur": "Dave",
+      "titre": "Du coté de chez Swann",
+      "path" : "du_cote_de_chez_swann"
+    },
+    {
+      "auteur": "Patrick Hernandez",
+      "titre": "Born to be alive",
+      "path" : "born_to_be_alive"
+    },
+    {
+      "auteur": "Michel Delpech",
+      "titre": "Pour un flirt avec toi",
+      "path" : "pour_un_flirt_avec_toi"
+    },
+    {
+      "auteur": "Michel Sardou",
+      "titre" : "La maladie d'amour",
+      "path": "la_maladie_d_amour"
+    }
+  ]
+}

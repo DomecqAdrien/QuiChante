@@ -1,0 +1,129 @@
+{
+  "musiques":[
+    {
+      "artiste": "Claude François",
+      "chansons":[
+        {
+          "titre": "Alexandrie Alexandra",
+          "path_music": "alexandrie_alexandra",
+          "path_image": "claude_francois_1"
+        },
+        {
+          "titre": "Belles belles belles",
+          "path_music": "belles_belles_belles",
+          "path_image": "claude_francois_2"
+        },
+        {
+          "titre": "C'est la même chanson",
+          "path_music": "c_est_la_meme_chanson",
+          "path_image": "claude_francois_3"
+        },
+        {
+          "titre": "Comme d'habitude",
+          "path_music": "comme_d_habitude",
+          "path_image": "claude_francois_4"
+        }
+      ]
+    },
+    {
+      "artiste": "Michel Sardou",
+      "chansons":[
+        {
+          "titre": "Maladie d'amour",
+          "path_music": "maladie_d_amour",
+          "path_image": "michel_sardou_1"
+        },
+        {
+          "titre": "Les ricains",
+          "path_music": "les_ricains",
+          "path_image": "michel_sardou_2"
+        },
+        {
+          "titre": "Le France",
+          "path_music": "le_france",
+          "path_image": "michel_sardou_3"
+        },
+        {
+          "titre": "Les bals populaires",
+          "path_music": "les_bals_populaires",
+          "path_image": "michel_sardou_4"
+        }
+      ]
+    },
+    {
+      "artiste": "Sylvie Vartan",
+      "chansons":[
+        {
+          "titre": "C'est fatal",
+          "path_music": "c_est_fatal",
+          "path_image": "sylvie_vartan_1"
+        },
+        {
+          "titre": "Moi je pense encore à toi",
+          "path_music": "moi_je_pense_encore_a_toi",
+          "path_image": "sylvie_vartan_2"
+        },
+        {
+          "titre": "Mon père",
+          "path_music": "mon_pere",
+          "path_image": "sylvie_vartan_3"
+        },
+        {
+          "titre": "Comme un garçon",
+          "path_music": "comme_un_garcon",
+          "path_image": "sylvie_vartan_4"
+        }
+      ]
+    },
+    {
+      "artiste": "Gérard Lenorman",
+      "chansons":[
+        {
+          "titre": "La balade des gens heureux",
+          "path_music": "la_balade_des_gens_heureux",
+          "path_image": "gerard_lenorman_1"
+        },
+        {
+          "titre": "Si j'étais président",
+          "path_music": "si_j_etais_president",
+          "path_image": "gerard_lenorman_2"
+        },
+        {
+          "titre": "Voici les clés",
+          "path_music": "voici_les_cles",
+          "path_image": "gerard_lenorman_3"
+        },
+        {
+          "titre": "Et moi je chante",
+          "path_music": "et_moi_je_chante",
+          "path_image": "gerard_lenorman_4"
+        }
+      ]
+    },
+    {
+      "artiste": "Joe Dassin",
+      "chansons":[
+        {
+          "titre": "Les Champs-Élysées",
+          "path_music": "les_champs_elysees",
+          "path_image": "joe_dassin_1"
+        },
+        {
+          "titre": "L'été indien",
+          "path_music": "l_ete_indien",
+          "path_image": "joe_dassin_2"
+        },
+        {
+          "titre": "Les petits pains au chocolat",
+          "path_music": "les_petits_pains_au_chocolat",
+          "path_image": "joe_dassin_3"
+        },
+        {
+          "titre": "Siffler sur la colline",
+          "path_music": "siffler_sur_la_colline",
+          "path_image": "joe_dassin_4"
+        }
+      ]
+    }
+  ]
+}
