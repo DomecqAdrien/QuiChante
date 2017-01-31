@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,10 +33,10 @@ public class GameActivity extends AppCompatActivity {
     Drawable pause;
     MediaPlayer mp;
     Button buttonNext;
-    Button buttonState;
-    List<Button> buttonAnswer;
-    List<Button> buttonSelectionArtist;
-    List<Button> buttonSongs;
+    TextView buttonState;
+    List<TextView> buttonAnswer;
+    List<TextView> buttonSelectionArtist;
+    List<TextView> buttonSongs;
     List<ImageView> imageSongs;
     int yearMusic;
     int compteur;
@@ -57,6 +58,7 @@ public class GameActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
+
         setContentView(R.layout.activity_game);
 
         yearMusic = getIntent().getIntExtra("year", 0);
@@ -66,35 +68,35 @@ public class GameActivity extends AppCompatActivity {
 
         buttonAnswer = new ArrayList<>();
 
-        buttonAnswer.add((Button) findViewById(R.id.buttonAnswer1));
-        buttonAnswer.add((Button) findViewById(R.id.buttonAnswer2));
-        buttonAnswer.add((Button) findViewById(R.id.buttonAnswer3));
-        buttonAnswer.add((Button) findViewById(R.id.buttonAnswer4));
+        buttonAnswer.add((TextView) findViewById(R.id.buttonAnswer1));
+        buttonAnswer.add((TextView) findViewById(R.id.buttonAnswer2));
+        buttonAnswer.add((TextView) findViewById(R.id.buttonAnswer3));
+        buttonAnswer.add((TextView) findViewById(R.id.buttonAnswer4));
 
         buttonSelectionArtist = new ArrayList<>();
 
-        buttonSelectionArtist.add((Button) findViewById(R.id.buttonArtist1));
-        buttonSelectionArtist.add((Button) findViewById(R.id.buttonArtist2));
-        buttonSelectionArtist.add((Button) findViewById(R.id.buttonArtist3));
-        buttonSelectionArtist.add((Button) findViewById(R.id.buttonArtist4));
-        buttonSelectionArtist.add((Button) findViewById(R.id.buttonArtist5));
+        buttonSelectionArtist.add((TextView) findViewById(R.id.buttonArtist1));
+        buttonSelectionArtist.add((TextView) findViewById(R.id.buttonArtist2));
+        buttonSelectionArtist.add((TextView) findViewById(R.id.buttonArtist3));
+        buttonSelectionArtist.add((TextView) findViewById(R.id.buttonArtist4));
+        buttonSelectionArtist.add((TextView) findViewById(R.id.buttonArtist5));
 
         buttonSongs = new ArrayList<>();
 
-        buttonSongs.add((Button) findViewById(R.id.buttonChanson1));
-        buttonSongs.add((Button) findViewById(R.id.buttonChanson2));
-        buttonSongs.add((Button) findViewById(R.id.buttonChanson3));
-        buttonSongs.add((Button) findViewById(R.id.buttonChanson4));
+        buttonSongs.add((TextView) findViewById(R.id.buttonChanson1));
+        buttonSongs.add((TextView) findViewById(R.id.buttonChanson2));
+        buttonSongs.add((TextView) findViewById(R.id.buttonChanson3));
+        buttonSongs.add((TextView) findViewById(R.id.buttonChanson4));
 
         imageSongs = new ArrayList<>();
 
-        imageSongs.add((ImageView) findViewById(R.id.imageChanson1));
+      /*  imageSongs.add((ImageView) findViewById(R.id.imageChanson1));
         imageSongs.add((ImageView) findViewById(R.id.imageChanson2));
         imageSongs.add((ImageView) findViewById(R.id.imageChanson3));
-        imageSongs.add((ImageView) findViewById(R.id.imageChanson4));
+        imageSongs.add((ImageView) findViewById(R.id.imageChanson4)); */
 
-        buttonNext = (Button) findViewById(R.id.buttonNext);
-        buttonState = (Button) findViewById(R.id.buttonState);
+
+        buttonState = (TextView) findViewById(R.id.buttonState);
 
         mp = new MediaPlayer();
 
@@ -104,7 +106,7 @@ public class GameActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         mp.stop();
-        Intent back = new Intent(this, MainActivity.class);
+        Intent back = new Intent(this, MenuActivity.class);
         finish();
         startActivity(back);
 
@@ -114,11 +116,11 @@ public class GameActivity extends AppCompatActivity {
         switch (compteur % 2){
             case 1:
                 mp.pause();
-                view.setBackground(resume);
+                buttonState.setText("Jouer");
                 break;
             case 0:
                 mp.start();
-                view.setBackground(pause);
+                buttonState.setText("Pause");
                 break;
         }
         compteur++;
@@ -217,7 +219,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void switchArtist(View view) {
-        int artistPosition = 0;
+         int artistPosition = 0;
         if(mp.isPlaying()){
             mp.stop();
             buttonState.setBackground(resume);
@@ -245,6 +247,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
         loadGame(artistPosition);
+
     }
 
     public void switchSong(View view) {

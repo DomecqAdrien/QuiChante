@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">102</string>
+    <string name="app_name">Qui Chante ?</string>
     <string name="title_activity_game">GameActivity</string>
-    <string name="artiste_1">Artiste 1</string>
-    <string name="artiste_5">Artiste 5</string>
-    <string name="artiste_4">Artiste 4</string>
-    <string name="artiste_3">Artiste 3</string>
-    <string name="artiste_2">Artiste 2</string>
+    <string name="artiste_1">1</string>
+    <string name="artiste_5">5</string>
+    <string name="artiste_4">4</string>
+    <string name="artiste_3">3</string>
+    <string name="artiste_2">2</string>
     <string name="next">Suivant</string>
     <string name="remote">remote</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

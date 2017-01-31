@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_titre"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="kagura.project.com.a102.MenuActivity">
+
+    <ImageView
+        app:srcCompat="@drawable/bouton_1980_2"
+        android:text="Années 80"
+        android:layout_width="255dp"
+        android:layout_height="711dp"
+        android:onClick="onClickYear"
+        android:id="@+id/button80"
+        android:layout_alignBottom="@+id/button70"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+       app:srcCompat="@drawable/bouton_1970_2"
+       android:text="Années 70"
+        android:layout_width="255dp"
+        android:layout_height="711dp"
+        android:onClick="onClickYear"
+       android:id="@+id/button70"
+        android:layout_marginRight="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/button80"
+        android:layout_toStartOf="@+id/button80" />
+
+    <ImageView
+        android:layout_width="255dp"
+        android:layout_height="711dp"
+        app:srcCompat="@drawable/bouton_1950_2"
+        android:id="@+id/imageView3"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_alignBottom="@+id/button70"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        app:srcCompat="@drawable/bouton_1960_2"
+        android:text="Années 60"
+        android:layout_width="255dp"
+        android:layout_height="711dp"
+        android:onClick="onClickYear"
+        android:id="@+id/button60"
+        android:layout_marginRight="111dp"
+
+        android:layout_marginEnd="111dp"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_toLeftOf="@+id/button70"
+        android:layout_toStartOf="@+id/button70" />
+</RelativeLayout>

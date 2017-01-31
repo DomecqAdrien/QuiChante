@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_titre"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="kagura.project.com.a102.MainActivity">
 
-    <Button
-        android:text="Années 60"
+    <TextView
+        android:text="Go !"
+        android:textSize="100sp"
+        android:onClick="startMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="70dp"
-        android:layout_marginStart="70dp"
-        android:onClick="onClickYear"
-        android:id="@+id/button60" />
+        android:layout_marginLeft="1093dp"
+        android:layout_marginStart="1093dp"
+        android:layout_marginBottom="25dp"
+        android:id="@+id/button" />
 
-    <Button
-        android:text="Années 70"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button60"
-        android:layout_toRightOf="@+id/button60"
-        android:layout_toEndOf="@+id/button60"
-        android:layout_marginLeft="237dp"
-        android:layout_marginStart="237dp"
-        android:onClick="onClickYear"
-        android:id="@+id/button70" />
-
-    <Button
-        android:text="Années 80"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button70"
-        android:layout_toRightOf="@+id/button70"
-        android:layout_toEndOf="@+id/button70"
-        android:layout_marginLeft="233dp"
-        android:layout_marginStart="233dp"
-        android:onClick="onClickYear"
-        android:id="@+id/button80" />
+    <ImageView
+        android:layout_width="800dp"
+        android:layout_height="649dp"
+        app:srcCompat="@drawable/titre2"
+        android:id="@+id/imageView2"
+        android:layout_marginLeft="160dp"
+        android:layout_marginStart="160dp"
+        android:layout_alignBottom="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="72dp" />
 </RelativeLayout>
