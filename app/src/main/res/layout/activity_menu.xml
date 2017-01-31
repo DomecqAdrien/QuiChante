@@ -37,8 +37,9 @@
         android:layout_width="255dp"
         android:layout_height="711dp"
         app:srcCompat="@drawable/bouton_1950_2"
-        android:id="@+id/imageView3"
+        android:id="@+id/button50"
         android:layout_marginLeft="60dp"
+        android:onClick="onClickYear"
         android:layout_marginStart="60dp"
         android:layout_alignBottom="@+id/button70"
         android:layout_alignParentLeft="true"
@@ -54,7 +55,7 @@
         android:layout_marginRight="111dp"
 
         android:layout_marginEnd="111dp"
-        android:layout_alignTop="@+id/imageView3"
+        android:layout_alignTop="@+id/button50"
         android:layout_toLeftOf="@+id/button70"
         android:layout_toStartOf="@+id/button70" />
 </RelativeLayout>

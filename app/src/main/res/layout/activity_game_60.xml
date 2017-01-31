@@ -13,7 +13,7 @@
     <ImageView
         android:layout_width="600dp"
         android:layout_height="460dp"
-        app:srcCompat="@drawable/television_1960_2"
+        app:srcCompat="@drawable/television_1960"
         android:id="@+id/imageLayoutTv"
         android:layout_above="@+id/imageView"
         android:layout_alignLeft="@+id/imageView"
@@ -93,7 +93,7 @@
     <ImageView
         android:layout_width="194dp"
         android:layout_height="400dp"
-        app:srcCompat="@drawable/telecomande3"
+        app:srcCompat="@drawable/telecomande_60_2"
         android:id="@+id/imageRemoteZ"
         android:contentDescription="@string/remote"
         android:layout_alignTop="@+id/imageLayoutTv"
@@ -183,7 +183,7 @@
     <ImageView
         android:layout_width="800dp"
         android:layout_height="261dp"
-        app:srcCompat="@drawable/meuble_1960_2"
+        app:srcCompat="@drawable/meuble_1960"
         android:id="@+id/imageView"
 
         android:layout_marginLeft="28dp"
@@ -219,7 +219,7 @@
     <ImageView
         android:layout_width="218dp"
         android:layout_height="500dp"
-        app:srcCompat="@drawable/telecomande2"
+        app:srcCompat="@drawable/telecomande_60"
         android:id="@+id/imageRemote"
         android:contentDescription="@string/remote"
         android:layout_marginLeft="73dp"

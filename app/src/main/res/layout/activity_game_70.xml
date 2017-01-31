@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_game"
+    android:background="@drawable/background_1970"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="kagura.project.com.a102.GameActivity">
+
+
+    <ImageView
+        android:layout_width="600dp"
+        android:layout_height="460dp"
+        app:srcCompat="@drawable/television_1970"
+        android:id="@+id/imageLayoutTv"
+        android:layout_above="@+id/imageView"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginLeft="84dp"
+        android:layout_marginStart="84dp" />
+
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/buttonArtist1"
+        android:onClick="switchArtist"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteY="155dp"
+        app:layout_constraintRight_toLeftOf="@+id/buttonArtist2"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_above="@+id/buttonArtist3"
+        android:layout_alignLeft="@+id/imageRemote"
+        android:layout_alignStart="@+id/imageRemote"
+        android:layout_marginBottom="15dp" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        android:onClick="switchArtist"
+        android:id="@+id/buttonArtist2"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_alignBaseline="@+id/buttonArtist1"
+        android:layout_alignBottom="@+id/buttonArtist1"
+        android:layout_alignRight="@+id/imageRemote"
+        android:layout_alignEnd="@+id/imageRemote" />
+
+    <TextView
+
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        android:onClick="switchArtist"
+        android:id="@+id/buttonArtist3"
+        android:layout_alignBottom="@+id/buttonChanson1"
+        android:layout_alignRight="@+id/buttonArtist2"
+        android:layout_alignEnd="@+id/buttonArtist2"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:onClick="switchArtist"
+        android:id="@+id/buttonArtist5"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        android:layout_marginTop="11dp"
+        android:layout_alignTop="@+id/buttonArtist4"
+        android:layout_toRightOf="@+id/buttonState"
+        android:layout_toEndOf="@+id/buttonState" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:onClick="switchArtist"
+        android:id="@+id/buttonArtist4"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        android:layout_alignTop="@+id/buttonChanson3"
+        android:layout_alignLeft="@+id/buttonArtist1"
+        android:layout_alignStart="@+id/buttonArtist1"
+        android:layout_marginTop="12dp" />
+
+    <ImageView
+        android:layout_width="194dp"
+        android:layout_height="400dp"
+        app:srcCompat="@drawable/telecomande3"
+        android:id="@+id/imageRemoteZ"
+        android:contentDescription="@string/remote"
+        android:layout_alignTop="@+id/imageLayoutTv"
+        android:layout_toRightOf="@+id/imageLayoutTv"
+        android:layout_toEndOf="@+id/imageLayoutTv"
+        android:layout_marginLeft="34dp"
+        android:layout_marginStart="34dp" />
+
+    <TextView
+        android:textSize="50px"
+        android:textAlignment="center"
+        android:onClick="switchSong"
+        android:visibility="visible"
+        android:id="@+id/buttonChanson2"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginTop="62dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignTop="@+id/imageRemoteZ"
+        android:layout_alignRight="@+id/imageRemoteZ"
+        android:layout_alignEnd="@+id/imageRemoteZ" />
+
+    <TextView
+        android:textSize="50px"
+        android:textAlignment="center"
+        android:onClick="switchSong"
+        android:visibility="visible"
+        android:id="@+id/buttonChanson1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignBaseline="@+id/buttonChanson2"
+        android:layout_alignBottom="@+id/buttonChanson2"
+        android:layout_toLeftOf="@+id/buttonChanson2"
+        android:layout_toStartOf="@+id/buttonChanson2" />
+
+    <TextView
+        android:textSize="50px"
+        android:textAlignment="center"
+        android:onClick="switchSong"
+        android:visibility="visible"
+        android:id="@+id/buttonChanson3"
+        android:layout_marginTop="41dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/buttonChanson1"
+        android:layout_alignLeft="@+id/buttonChanson1"
+        android:layout_alignStart="@+id/buttonChanson1" />
+
+    <TextView
+        android:textSize="50px"
+        android:textAlignment="center"
+        android:onClick="switchSong"
+        android:visibility="visible"
+        android:id="@+id/buttonChanson4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignBaseline="@+id/buttonChanson3"
+        android:layout_alignBottom="@+id/buttonChanson3"
+        android:layout_toRightOf="@+id/buttonChanson3"
+        android:layout_toEndOf="@+id/buttonChanson3" />
+
+    <TextView
+        android:layout_width="130dp"
+        android:layout_height="100dp"
+        android:id="@+id/buttonAnswer1"
+        android:onClick="response"
+        android:layout_alignTop="@+id/buttonState"
+        android:layout_alignLeft="@+id/imageLayoutTv"
+        android:layout_alignStart="@+id/imageLayoutTv"
+        android:layout_marginLeft="175dp"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="33dp" />
+
+    <TextView
+        android:layout_width="130dp"
+        android:layout_height="100dp"
+        android:onClick="response"
+        android:id="@+id/buttonAnswer2"
+        android:layout_alignBaseline="@+id/buttonAnswer1"
+        android:layout_alignBottom="@+id/buttonAnswer1"
+        android:layout_toRightOf="@+id/buttonAnswer1"
+        android:layout_toEndOf="@+id/buttonAnswer1"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp" />
+
+    <ImageView
+        android:layout_width="800dp"
+        android:layout_height="261dp"
+        app:srcCompat="@drawable/meuble_1970"
+        android:id="@+id/imageView"
+
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/imageRemote"
+        android:layout_toEndOf="@+id/imageRemote" />
+
+    <TextView
+        android:layout_width="130dp"
+        android:layout_height="100dp"
+        android:textSize="50px"
+        android:textAlignment="center"
+        android:onClick="response"
+        android:id="@+id/buttonAnswer3"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/buttonAnswer1"
+        android:layout_alignStart="@+id/buttonAnswer1" />
+
+    <TextView
+        android:layout_width="130dp"
+        android:textSize="50px"
+        android:textAlignment="center"
+        android:onClick="response"
+        android:id="@+id/buttonAnswer4"
+
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/buttonAnswer2"
+        android:layout_alignStart="@+id/buttonAnswer2" />
+
+    <ImageView
+        android:layout_width="218dp"
+        android:layout_height="500dp"
+        app:srcCompat="@drawable/telecomande2"
+        android:id="@+id/imageRemote"
+        android:contentDescription="@string/remote"
+        android:layout_marginLeft="73dp"
+        android:layout_marginStart="73dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="180dp"
+        android:layout_height="90dp"
+        android:textSize="70sp"
+        android:text="Jouer"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        android:onClick="StartMusic"
+        android:id="@+id/buttonState"
+        android:visibility="visible"
+        android:layout_below="@+id/imageRemoteZ"
+        android:layout_alignRight="@+id/buttonArtist2"
+        android:layout_alignEnd="@+id/buttonArtist2"
+        android:layout_marginTop="48dp" />
+
+</RelativeLayout>

@@ -45,17 +45,23 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void onClickYear(View view) {
+        intentGame = new Intent(this, GameActivity.class);
         switch (view.getId()){
+            case R.id.button50:
+                intentGame.putExtra("year", 50);
+                this.startActivity(intentGame);
+                break;
             case R.id.button60:
-                Toast.makeText(this, "à venir", Toast.LENGTH_LONG).show();
+                intentGame.putExtra("year", 60);
+                this.startActivity(intentGame);
                 break;
             case R.id.button70:
-                intentGame = new Intent(this, GameActivity.class);
                 intentGame.putExtra("year", 70);
                 this.startActivity(intentGame);
                 break;
             case R.id.button80:
-                Toast.makeText(this, "à venir", Toast.LENGTH_LONG).show();
+                intentGame.putExtra("year", 80);
+                this.startActivity(intentGame);
                 break;
         }
     }

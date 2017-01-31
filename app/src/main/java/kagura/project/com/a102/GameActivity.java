@@ -58,10 +58,24 @@ public class GameActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-
-        setContentView(R.layout.activity_game);
-
         yearMusic = getIntent().getIntExtra("year", 0);
+        switch(yearMusic){
+            case(50):
+                setContentView(R.layout.activity_game_50);
+                break;
+            case(60):
+                setContentView(R.layout.activity_game_60);
+                break;
+            case(70):
+                setContentView(R.layout.activity_game_70);
+                break;
+            case(80):
+                setContentView(R.layout.activity_game_80);
+                break;
+        }
+
+
+
 
         resume = getResources().getDrawable(android.R.drawable.ic_media_play);
         pause = getResources().getDrawable(android.R.drawable.ic_media_pause);
