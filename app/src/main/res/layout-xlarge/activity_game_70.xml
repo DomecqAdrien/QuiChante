@@ -60,7 +60,8 @@
         android:layout_toRightOf="@+id/imageLayoutTv"
         android:layout_toEndOf="@+id/imageLayoutTv"
         android:layout_marginLeft="34dp"
-        android:layout_marginStart="34dp" />
+        android:layout_marginStart="34dp"
+        android:visibility="invisible" />
 
     <TextView
         android:textSize="50px"

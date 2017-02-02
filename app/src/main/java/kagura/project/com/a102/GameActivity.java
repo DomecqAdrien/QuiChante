@@ -38,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
     List<TextView> buttonsSelectionArtist;
     List<TextView> buttonsSongs;
     List<ImageView> imageSongs;
+    ImageView remoteSings;
     int yearMusic;
     boolean isMusicStarted = false;
     int compteur;
@@ -116,6 +117,7 @@ public class GameActivity extends AppCompatActivity {
 
 
         buttonState = (TextView) findViewById(R.id.buttonState);
+        remoteSings = (ImageView) findViewById(R.id.imageRemoteZ);
 
         mp = new MediaPlayer();
 
@@ -196,7 +198,11 @@ public class GameActivity extends AppCompatActivity {
                     buttonState.setBackground(resume);
                     compteur++;
                 }
-                mp = MediaPlayer.create(this, getResources().getIdentifier(music.getPathMusics().get(i), "raw", getPackageName()));
+
+                String currentMusicPath = game.getMusicPath(i);
+                mp = MediaPlayer.create(this, getResources().getIdentifier(currentMusicPath, "raw", getPackageName()));
+
+                List<String> singsAnswersList = game.buildListSingsAnswer(i);
 
                 Log.i("testButtonSongIds", Integer.toString(view.getId()) + "//" + Integer.toString(buttonsSongs.get(i).getId()));
                 buttonState.setVisibility(View.VISIBLE);
@@ -216,5 +222,8 @@ public class GameActivity extends AppCompatActivity {
             view.setBackgroundColor(getResources().getColor(R.color.red));
              buttonsAnswer.get(Integer.parseInt(answers[1])).setBackgroundColor(getResources().getColor(R.color.green));
         }
+        remoteSings.setVisibility(View.VISIBLE);
+
+        game.initGameSings();
     }
 }

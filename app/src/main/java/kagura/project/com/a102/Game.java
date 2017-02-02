@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class Game {
@@ -26,6 +25,10 @@ public class Game {
     String artist;
     List<String> artists;
     int placementGoodAnswerSinger;
+    int placementGoodAnswerSing;
+    int artistPositionInJson;
+
+
 
     public Game(Context context, int yearMusic){
         this.context = context;
@@ -33,6 +36,7 @@ public class Game {
     }
 
     public List<String> initGameSingers(int artistPosition){
+        this.artistPositionInJson = artistPosition;
         artist = null;
         artists = null;
         try {
@@ -56,12 +60,12 @@ public class Game {
 
     private List<String> buildListSingersAnswer(String artist, List<String> artists) {
         List<String> listSingersAnswer = new ArrayList<>(Collections.nCopies(4 , ""));
-        int placementGoodAnswer = rand.nextInt(3);
+        placementGoodAnswerSinger = rand.nextInt(3);
 
         for (int i =0; i < 4; i++){
-            if(i == placementGoodAnswer){
+            if(i == placementGoodAnswerSinger){
                 listSingersAnswer.set(i, artist);
-                placementGoodAnswerSinger = i;
+
             }else{
                 int random = rand.nextInt(artists.size());
                 listSingersAnswer.set(i, artists.get(random));
@@ -69,22 +73,17 @@ public class Game {
             }
 
             Log.i("listsingersanswer", listSingersAnswer.toString());
-
-            //Log.i("random", Integer.toString(random));
-            //Log.i("titres", music.getTitres().toString());
-            //imageSongs.get(i).setImageDrawable(music.getImages().get(i));
-            //buttonsSongs.get(i).setVisibility(View.VISIBLE);
         }
 
         return listSingersAnswer;
     }
 
-    /*public void initGameSings(int artist){
+    public void initGameSings(){
 
         try {
             JSONObject obj = new JSONObject(loadJSONFromAsset("musiques" + yearMusic + ".json"));
             JSONArray jsonArray = obj.getJSONArray("musiques");
-            JSONObject jsonObjArtiste = jsonArray.getJSONObject(artist);
+            JSONObject jsonObjArtiste = jsonArray.getJSONObject(artistPositionInJson);
             //artistes = new ArrayList<>();
             music = new Music();
 
@@ -100,7 +99,7 @@ public class Game {
                 JSONObject jsonObjChansons = jsonArrayChansons.getJSONObject(i);
                 titres.add(jsonObjChansons.getString("titre"));
                 pathMusics.add(jsonObjChansons.getString("path_music"));
-                images.add(getResources().getDrawable(getResources().getIdentifier(jsonObjChansons.getString("path_image"), "drawable", getPackageName())));
+                images.add(context.getResources().getDrawable(context.getResources().getIdentifier(jsonObjChansons.getString("path_image"), "drawable", context.getPackageName())));
             }
 
             music.setTitres(titres);
@@ -112,32 +111,45 @@ public class Game {
             e.printStackTrace();
         }
 
-        Random r = new Random();
-        int placementGoodAnswer = r.nextInt(3);
+        //return buildListSingsAnswer(sing, sings);
+    }
+
+    public List<String> buildListSingsAnswer(int musicPosition) {
+
+        Music music = this.music;
+
+        List<String> listSingsAnswer = new ArrayList<>(Collections.nCopies(4 , ""));
+
+        placementGoodAnswerSing = rand.nextInt(3);
         Log.i("size string", Integer.toString(music.getTitres().size()));
-        Log.i("randomGood", Integer.toString(placementGoodAnswer));
+        Log.i("randomGood", Integer.toString(placementGoodAnswerSing));
         Log.i("titres", music.getTitres().toString());
-        goodAnswer = music.getTitres().get(placementGoodAnswer);
+        //goodAnswer = music.getTitres().get(placementGoodAnswer);
 
         for (int i =0; i < 4; i++){
-            if(i == placementGoodAnswer){
-                buttonsAnswer.get(i).setText(goodAnswer);
+
+            if(i == placementGoodAnswerSing){
+                listSingsAnswer.set(i, music.getTitres().get(musicPosition));
+                music.getTitres().remove(musicPosition);
+                //buttonsAnswer.get(i).setText(goodAnswer);
             }else{
-                random = r.nextInt(music.getTitres().size());
-                buttonsAnswer.get(i).setText(music.getTitres().get(random));
-                music.getTitres().remove(random);
+                int randomMusic = rand.nextInt(music.getTitres().size());
+                listSingsAnswer.set(i, music.getTitres().get(randomMusic));
+                music.getTitres().remove(randomMusic);
             }
 
-            Log.i("random", Integer.toString(random));
-            Log.i("titres", music.getTitres().toString());
+            //Log.i("random", Integer.toString(random));
+            //Log.i("titres", music.getTitres().toString());
 
 
 
             //imageSongs.get(i).setImageDrawable(music.getImages().get(i));
-            buttonsSongs.get(i).setVisibility(View.VISIBLE);
-        }
+            //buttonsSongs.get(i).setVisibility(View.VISIBLE);
 
-    }*/
+            Log.i("listsingsAnswer", listSingsAnswer.toString());
+        }
+        return listSingsAnswer;
+    }
 
     private String loadJSONFromAsset(String jsonPath) {
         String json;
@@ -168,5 +180,10 @@ public class Game {
         }
 
         return answers;
+    }
+
+    public String getMusicPath(int musicPosition) {
+        Log.i("pathMusic", music.getPathMusics().get(musicPosition));
+        return music.getPathMusics().get(musicPosition);
     }
 }
