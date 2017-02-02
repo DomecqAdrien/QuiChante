@@ -45,6 +45,8 @@ public class GameActivity extends AppCompatActivity {
     int goodAnswerButtonPosition;
     List<String> artistes;
 
+    Game game;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,8 @@ public class GameActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_game_80);
                 break;
         }
+
+        game = new Game(this, yearMusic);
 
 
 
@@ -119,12 +123,8 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         mp.stop();
-        Intent back = new Intent(this, MenuActivity.class);
-        finish();
-        startActivity(back);
-
+        super.onBackPressed();
     }
 
     public void StartMusic(View view) {
@@ -149,70 +149,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void loadGame(int artist){
-
-        try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("musiques" + yearMusic + ".json"));
-            JSONArray jsonArray = obj.getJSONArray("musiques");
-            JSONObject jsonObjArtiste = jsonArray.getJSONObject(artist);
-            //artistes = new ArrayList<>();
-            music = new Music();
-
-            music.setAuteur(jsonObjArtiste.getString("artiste"));
-            JSONArray jsonArrayChansons = jsonObjArtiste.getJSONArray("chansons");
-
-
-            List<String> titres = new ArrayList<>();
-            List<String> pathMusics = new ArrayList<>();
-            List<Drawable> images = new ArrayList<>();
-
-            for(int i = 0; i < jsonArrayChansons.length(); i++){
-                JSONObject jsonObjChansons = jsonArrayChansons.getJSONObject(i);
-                titres.add(jsonObjChansons.getString("titre"));
-                pathMusics.add(jsonObjChansons.getString("path_music"));
-                images.add(getResources().getDrawable(getResources().getIdentifier(jsonObjChansons.getString("path_image"), "drawable", getPackageName())));
-            }
-
-            music.setTitres(titres);
-            music.setPathMusics(pathMusics);
-            music.setImages(images);
-
-
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-
-        Random r = new Random();
-        int placementGoodAnswer = r.nextInt(3);
-        Log.i("size string", Integer.toString(music.getTitres().size()));
-        Log.i("randomGood", Integer.toString(placementGoodAnswer));
-        Log.i("titres", music.getTitres().toString());
-        goodAnswer = music.getTitres().get(placementGoodAnswer);
-
-        for (int i =0; i < 4; i++){
-            if(i == placementGoodAnswer){
-                buttonsAnswer.get(i).setText(goodAnswer);
-            }else{
-                random = r.nextInt(music.getTitres().size());
-                buttonsAnswer.get(i).setText(music.getTitres().get(random));
-                music.getTitres().remove(random);
-            }
-
-            Log.i("random", Integer.toString(random));
-            Log.i("titres", music.getTitres().toString());
-
-
-
-            //imageSongs.get(i).setImageDrawable(music.getImages().get(i));
-            buttonsSongs.get(i).setVisibility(View.VISIBLE);
-        }
-
-
-
-
     }
 
     public void switchArtist(View view) {
-         int artistPosition = 0;
+        int artistPosition = 0;
         if(mp.isPlaying()){
             mp.stop();
             buttonState.setBackground(resume);
@@ -239,7 +179,12 @@ public class GameActivity extends AppCompatActivity {
                 break;
         }
 
-        loadGame(artistPosition);
+        List<String> artistesAnswers = game.initGameSingers(artistPosition);
+        for(int i = 0; i < artistesAnswers.size(); i++){
+            buttonsAnswer.get(i).setText(artistesAnswers.get(i));
+        }
+
+        //loadGame(artistPosition);
 
     }
 
@@ -260,22 +205,16 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public String loadJSONFromAsset(String jsonPath) {
-        String json;
-        try {
-            InputStream is = getAssets().open(jsonPath);
-            int size = is.available();
-            byte[] buffer = new byte[size];
+    public void checkArtistAnswer(View view) {
+        TextView buttonAnswer = (TextView) view;
+        String buttonAnswerText = buttonAnswer.getText().toString();
+        String[] answers = game.checkIfArtistFound(buttonAnswerText);
 
-            is.read(buffer);
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
+        if(answers[0].equals("good")){
+            view.setBackgroundColor(getResources().getColor(R.color.green));
+        }else{
+            view.setBackgroundColor(getResources().getColor(R.color.red));
+             buttonsAnswer.get(Integer.parseInt(answers[1])).setBackgroundColor(getResources().getColor(R.color.green));
         }
-        Log.i("json", json);
-        return json;
     }
 }
