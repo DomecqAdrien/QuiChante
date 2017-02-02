@@ -34,11 +34,12 @@ public class GameActivity extends AppCompatActivity {
     MediaPlayer mp;
     Button buttonNext;
     TextView buttonState;
-    List<TextView> buttonAnswer;
-    List<TextView> buttonSelectionArtist;
-    List<TextView> buttonSongs;
+    List<TextView> buttonsAnswer;
+    List<TextView> buttonsSelectionArtist;
+    List<TextView> buttonsSongs;
     List<ImageView> imageSongs;
     int yearMusic;
+    boolean isMusicStarted = false;
     int compteur;
     int random;
     int goodAnswerButtonPosition;
@@ -80,31 +81,31 @@ public class GameActivity extends AppCompatActivity {
         resume = getResources().getDrawable(android.R.drawable.ic_media_play);
         pause = getResources().getDrawable(android.R.drawable.ic_media_pause);
 
-        buttonAnswer = new ArrayList<>();
+        buttonsAnswer = new ArrayList<>();
 
-        buttonAnswer.add((TextView) findViewById(R.id.buttonAnswer1));
-        buttonAnswer.add((TextView) findViewById(R.id.buttonAnswer2));
-        buttonAnswer.add((TextView) findViewById(R.id.buttonAnswer3));
-        buttonAnswer.add((TextView) findViewById(R.id.buttonAnswer4));
+        buttonsAnswer.add((TextView) findViewById(R.id.buttonAnswer1));
+        buttonsAnswer.add((TextView) findViewById(R.id.buttonAnswer2));
+        buttonsAnswer.add((TextView) findViewById(R.id.buttonAnswer3));
+        buttonsAnswer.add((TextView) findViewById(R.id.buttonAnswer4));
 
-        buttonSelectionArtist = new ArrayList<>();
+        buttonsSelectionArtist = new ArrayList<>();
 
-        buttonSelectionArtist.add((TextView) findViewById(R.id.buttonArtist1));
-        buttonSelectionArtist.add((TextView) findViewById(R.id.buttonArtist2));
-        buttonSelectionArtist.add((TextView) findViewById(R.id.buttonArtist3));
-        buttonSelectionArtist.add((TextView) findViewById(R.id.buttonArtist4));
-        buttonSelectionArtist.add((TextView) findViewById(R.id.buttonArtist5));
+        buttonsSelectionArtist.add((TextView) findViewById(R.id.buttonArtist1));
+        buttonsSelectionArtist.add((TextView) findViewById(R.id.buttonArtist2));
+        buttonsSelectionArtist.add((TextView) findViewById(R.id.buttonArtist3));
+        buttonsSelectionArtist.add((TextView) findViewById(R.id.buttonArtist4));
+        buttonsSelectionArtist.add((TextView) findViewById(R.id.buttonArtist5));
 
-        buttonSongs = new ArrayList<>();
+        buttonsSongs = new ArrayList<>();
 
-        buttonSongs.add((TextView) findViewById(R.id.buttonChanson1));
-        buttonSongs.add((TextView) findViewById(R.id.buttonChanson2));
-        buttonSongs.add((TextView) findViewById(R.id.buttonChanson3));
-        buttonSongs.add((TextView) findViewById(R.id.buttonChanson4));
+        buttonsSongs.add((TextView) findViewById(R.id.buttonChanson1));
+        buttonsSongs.add((TextView) findViewById(R.id.buttonChanson2));
+        buttonsSongs.add((TextView) findViewById(R.id.buttonChanson3));
+        buttonsSongs.add((TextView) findViewById(R.id.buttonChanson4));
 
         imageSongs = new ArrayList<>();
 
-      /*  imageSongs.add((ImageView) findViewById(R.id.imageChanson1));
+        /*imageSongs.add((ImageView) findViewById(R.id.imageChanson1));
         imageSongs.add((ImageView) findViewById(R.id.imageChanson2));
         imageSongs.add((ImageView) findViewById(R.id.imageChanson3));
         imageSongs.add((ImageView) findViewById(R.id.imageChanson4)); */
@@ -140,10 +141,7 @@ public class GameActivity extends AppCompatActivity {
         compteur++;
     }
 
-    public void response(View view) {
-
-
-    }
+    public void response(View view) {}
 
     public void nextQuestion(View view) {
         mp.stop();
@@ -156,7 +154,7 @@ public class GameActivity extends AppCompatActivity {
             JSONObject obj = new JSONObject(loadJSONFromAsset("musiques" + yearMusic + ".json"));
             JSONArray jsonArray = obj.getJSONArray("musiques");
             JSONObject jsonObjArtiste = jsonArray.getJSONObject(artist);
-            artistes = new ArrayList<>();
+            //artistes = new ArrayList<>();
             music = new Music();
 
             music.setAuteur(jsonObjArtiste.getString("artiste"));
@@ -192,10 +190,10 @@ public class GameActivity extends AppCompatActivity {
 
         for (int i =0; i < 4; i++){
             if(i == placementGoodAnswer){
-                buttonAnswer.get(i).setText(goodAnswer);
+                buttonsAnswer.get(i).setText(goodAnswer);
             }else{
                 random = r.nextInt(music.getTitres().size());
-                buttonAnswer.get(i).setText(music.getTitres().get(random));
+                buttonsAnswer.get(i).setText(music.getTitres().get(random));
                 music.getTitres().remove(random);
             }
 
@@ -204,32 +202,13 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-            imageSongs.get(i).setImageDrawable(music.getImages().get(i));
-            buttonSongs.get(i).setVisibility(View.VISIBLE);
+            //imageSongs.get(i).setImageDrawable(music.getImages().get(i));
+            buttonsSongs.get(i).setVisibility(View.VISIBLE);
         }
 
 
 
 
-    }
-
-    public String loadJSONFromAsset(String jsonPath) {
-        String json;
-        try {
-            InputStream is = getAssets().open(jsonPath);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-
-            is.read(buffer);
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        Log.i("json", json);
-        return json;
     }
 
     public void switchArtist(View view) {
@@ -266,7 +245,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void switchSong(View view) {
         for (int i =0; i < 4; i++){
-            if(view.getId() == buttonSongs.get(i).getId()){
+            if(view.getId() == buttonsSongs.get(i).getId()){
                 if(mp.isPlaying()){
                     mp.stop();
                     buttonState.setBackground(resume);
@@ -274,10 +253,29 @@ public class GameActivity extends AppCompatActivity {
                 }
                 mp = MediaPlayer.create(this, getResources().getIdentifier(music.getPathMusics().get(i), "raw", getPackageName()));
 
-                Log.i("testButtonSongIds", Integer.toString(view.getId()) + "//" + Integer.toString(buttonSongs.get(i).getId()));
+                Log.i("testButtonSongIds", Integer.toString(view.getId()) + "//" + Integer.toString(buttonsSongs.get(i).getId()));
                 buttonState.setVisibility(View.VISIBLE);
 
             }
         }
+    }
+
+    public String loadJSONFromAsset(String jsonPath) {
+        String json;
+        try {
+            InputStream is = getAssets().open(jsonPath);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        Log.i("json", json);
+        return json;
     }
 }
