@@ -1,4 +1,4 @@
-package kagura.project.com.a102;
+package kagura.project.com.QuiChante;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
