@@ -5,43 +5,34 @@ import android.graphics.drawable.Drawable;
 
 import java.util.List;
 
-public class Music {
-    private String auteur;
+class Music {
     private List<String> titres;
     private List<String> pathMusics;
     private List<Drawable> images;
 
-    public Music(){}
+    Music(){}
 
-    public List<String> getPathMusics() {
+    List<String> getPathMusics() {
         return pathMusics;
     }
 
-    public void setPathMusics(List<String> pathMusics) {
+    void setPathMusics(List<String> pathMusics) {
         this.pathMusics = pathMusics;
     }
 
-    public List<Drawable> getImages() {
+    List<Drawable> getImages() {
         return images;
     }
 
-    public void setImages(List<Drawable> images) {
+    void setImages(List<Drawable> images) {
         this.images = images;
     }
 
-    public String getAuteur() {
-        return auteur;
-    }
-
-    public void setAuteur(String auteur) {
-        this.auteur = auteur;
-    }
-
-    public List<String> getTitres() {
+    List<String> getTitres() {
         return titres;
     }
 
-    public void setTitres(List<String> titres) {
+    void setTitres(List<String> titres) {
         this.titres = titres;
     }
 }

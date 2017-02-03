@@ -87,7 +87,6 @@ public class Game {
             //artistes = new ArrayList<>();
             music = new Music();
 
-            music.setAuteur(jsonObjArtiste.getString("artiste"));
             JSONArray jsonArrayChansons = jsonObjArtiste.getJSONArray("chansons");
 
 

@@ -23,6 +23,7 @@ public class MenuActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        //noinspection ConstantConditions
         getSupportActionBar().hide();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 

@@ -1,7 +1,6 @@
 package kagura.project.com.QuiChante;
 
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
