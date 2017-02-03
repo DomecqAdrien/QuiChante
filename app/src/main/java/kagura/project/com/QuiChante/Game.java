@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Game {
+class Game {
 
     private Context context;
     private Music music;
@@ -30,12 +30,12 @@ public class Game {
     private ArrayList<String> listSingsAnswer;
 
 
-    public Game(Context context, int yearMusic){
+    Game(Context context, int yearMusic){
         this.context = context;
         this.yearMusic = yearMusic;
     }
 
-    public List<String> initGameSingers(int artistPosition){
+    List<String> initGameSingers(int artistPosition){
         this.artistPositionInJson = artistPosition;
         artist = null;
         List<String> artists = null;
@@ -78,7 +78,7 @@ public class Game {
         return listSingersAnswer;
     }
 
-    public void initGameSings(){
+    void initGameSings(){
 
         try {
             JSONObject obj = new JSONObject(loadJSONFromAsset("musiques" + yearMusic + ".json"));
@@ -110,7 +110,7 @@ public class Game {
         }
     }
 
-    public void buildListSingsAnswer(int musicPosition) {
+    void buildListSingsAnswer(int musicPosition) {
 
         listSingsAnswer = new ArrayList<>(Collections.nCopies(4 , ""));
 
@@ -138,7 +138,7 @@ public class Game {
         }
     }
 
-    public List<String> getListSingsAnswer(){
+    List<String> getListSingsAnswer(){
         return listSingsAnswer;
     }
 
@@ -151,6 +151,7 @@ public class Game {
             int size = is.available();
             byte[] buffer = new byte[size];
 
+            //noinspection ResultOfMethodCallIgnored
             is.read(buffer);
             is.close();
 
@@ -163,7 +164,7 @@ public class Game {
         return json;
     }
 
-    public String[] checkIfArtistFound(String artist) {
+    String[] checkIfArtistFound(String artist) {
         String state;
         if(this.artist.equals(artist)){
             state = "good";
@@ -173,7 +174,7 @@ public class Game {
         return buildAnswerStringArray(state, placementGoodAnswerSinger);
     }
 
-    public String[] checkIfSongFound(String song) {
+    String[] checkIfSongFound(String song) {
         String state;
         if(actualSong.equals(song)){
             state = "good";
@@ -183,17 +184,17 @@ public class Game {
         return buildAnswerStringArray(state, placementGoodAnswerSing);
     }
 
-    public String getMusicPath(int musicPosition) {
+    String getMusicPath(int musicPosition) {
         Log.i("pathMusic", music.getPathMusics().get(musicPosition));
         return music.getPathMusics().get(musicPosition);
     }
 
-    public Drawable getImage(int musicPosition) {
+    Drawable getImage(int musicPosition) {
         Log.i("pathMusic", music.getPathMusics().get(musicPosition));
         return music.getImages().get(musicPosition);
     }
 
-    public String[] buildAnswerStringArray(String state, int placementGoodAnswer){
+    private String[] buildAnswerStringArray(String state, int placementGoodAnswer){
         return new String[]{state, Integer.toString(placementGoodAnswer)};
     }
 }
