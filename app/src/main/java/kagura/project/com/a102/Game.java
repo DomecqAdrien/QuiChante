@@ -3,7 +3,6 @@ package kagura.project.com.a102;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
-import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,15 +17,14 @@ import java.util.Random;
 
 public class Game {
 
-    Context context;
-    Music music;
-    int yearMusic;
-    Random rand = new Random();
-    String artist;
-    List<String> artists;
-    int placementGoodAnswerSinger;
-    int placementGoodAnswerSing;
-    int artistPositionInJson;
+    private Context context;
+    private Music music;
+    private int yearMusic;
+    private Random rand = new Random();
+    private String artist;
+    private int placementGoodAnswerSinger;
+    private int placementGoodAnswerSing;
+    private int artistPositionInJson;
 
 
 
@@ -38,7 +36,7 @@ public class Game {
     public List<String> initGameSingers(int artistPosition){
         this.artistPositionInJson = artistPosition;
         artist = null;
-        artists = null;
+        List<String> artists = null;
         try {
             JSONObject object = new JSONObject(loadJSONFromAsset("chanteurs.json"));
             JSONArray arrayYear = object.getJSONArray(Integer.toString(yearMusic));
@@ -121,21 +119,28 @@ public class Game {
         List<String> listSingsAnswer = new ArrayList<>(Collections.nCopies(4 , ""));
 
         placementGoodAnswerSing = rand.nextInt(3);
+        listSingsAnswer.set(placementGoodAnswerSing, music.getTitres().get(musicPosition));
         Log.i("size string", Integer.toString(music.getTitres().size()));
         Log.i("randomGood", Integer.toString(placementGoodAnswerSing));
         Log.i("titres", music.getTitres().toString());
         //goodAnswer = music.getTitres().get(placementGoodAnswer);
 
+        List<Integer> listPositions = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            listPositions.add(i);
+        }
+
         for (int i =0; i < 4; i++){
 
-            if(i == placementGoodAnswerSing){
-                listSingsAnswer.set(i, music.getTitres().get(musicPosition));
-                music.getTitres().remove(musicPosition);
-                //buttonsAnswer.get(i).setText(goodAnswer);
-            }else{
+            if(i != placementGoodAnswerSing){
                 int randomMusic = rand.nextInt(music.getTitres().size());
-                listSingsAnswer.set(i, music.getTitres().get(randomMusic));
-                music.getTitres().remove(randomMusic);
+                if(!listSingsAnswer.contains(music.getTitres().get(randomMusic))){
+                    listSingsAnswer.set(i, music.getTitres().get(randomMusic));
+                }
+                else{
+                    i--;
+                }
             }
 
             //Log.i("random", Integer.toString(random));
@@ -185,5 +190,9 @@ public class Game {
     public String getMusicPath(int musicPosition) {
         Log.i("pathMusic", music.getPathMusics().get(musicPosition));
         return music.getPathMusics().get(musicPosition);
+    }
+
+    public int[] getAnswerSinger(){
+        return new int[]{placementGoodAnswerSinger};
     }
 }

@@ -1,38 +1,28 @@
 package kagura.project.com.a102;
 
-import android.content.Intent;
+
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
-    String goodAnswer;
-    Music music;
+
     Drawable resume;
     Drawable pause;
     MediaPlayer mp;
-    Button buttonNext;
     TextView buttonState;
     List<TextView> buttonsAnswer;
     List<TextView> buttonsSelectionArtist;
@@ -40,11 +30,8 @@ public class GameActivity extends AppCompatActivity {
     List<ImageView> imageSongs;
     ImageView remoteSings;
     int yearMusic;
-    boolean isMusicStarted = false;
+    //boolean isMusicStarted = false;
     int compteur;
-    int random;
-    int goodAnswerButtonPosition;
-    List<String> artistes;
 
     Game game;
 
@@ -154,7 +141,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void switchArtist(View view) {
-        int artistPosition = 0;
+        int artistPosition;
         if(mp.isPlaying()){
             mp.stop();
             buttonState.setBackground(resume);
@@ -179,6 +166,9 @@ public class GameActivity extends AppCompatActivity {
             case R.id.buttonArtist5:
                 artistPosition = 4;
                 break;
+            default:
+                artistPosition = 0;
+                break;
         }
 
         List<String> artistesAnswers = game.initGameSingers(artistPosition);
@@ -191,6 +181,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void switchSong(View view) {
+        for(int i = 0; i < 4; i++){
+            buttonsAnswer.get(i).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        }
+
         for (int i =0; i < 4; i++){
             if(view.getId() == buttonsSongs.get(i).getId()){
                 if(mp.isPlaying()){
@@ -203,6 +197,10 @@ public class GameActivity extends AppCompatActivity {
                 mp = MediaPlayer.create(this, getResources().getIdentifier(currentMusicPath, "raw", getPackageName()));
 
                 List<String> singsAnswersList = game.buildListSingsAnswer(i);
+
+                for(int j = 0; j < singsAnswersList.size(); j++){
+                    buttonsAnswer.get(j).setText(singsAnswersList.get(j));
+                }
 
                 Log.i("testButtonSongIds", Integer.toString(view.getId()) + "//" + Integer.toString(buttonsSongs.get(i).getId()));
                 buttonState.setVisibility(View.VISIBLE);
