@@ -143,17 +143,15 @@ public class GameActivity extends AppCompatActivity {
                 Log.i("currentMusicPath", currentMusicPath);
                 mp = MediaPlayer.create(this, getResources().getIdentifier(currentMusicPath, "raw", getPackageName()));
 
-                List<List> singsAnswersList = game.buildListSingsAnswer(i);
+                game.buildListSingsAnswer(i);
 
-                for(int j = 0; j < singsAnswersList.get(0).size(); j++){
-                    buttonsAnswer.get(j).setText((String) singsAnswersList.get(0).get(j));
+                for(int j = 0; j < game.getListSingsAnswer().size(); j++){
+                    buttonsAnswer.get(j).setText(game.getListSingsAnswer().get(j));
                 }
 
-                Drawable ekelele = game.getImage(i);
-                imageTv.setImageDrawable(ekelele);
+                imageTv.setImageDrawable(game.getImage(i));
 
                 Log.i("testButtonSongIds", Integer.toString(view.getId()) + "//" + Integer.toString(buttonsSongs.get(i).getId()));
-                //buttonState.setVisibility(View.VISIBLE);
             }
         }
     }

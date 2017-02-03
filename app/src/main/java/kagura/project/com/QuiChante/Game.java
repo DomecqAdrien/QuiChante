@@ -2,6 +2,7 @@ package kagura.project.com.QuiChante;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -26,6 +27,7 @@ public class Game {
     private int placementGoodAnswerSing;
     private int artistPositionInJson;
     private String actualSong;
+    private ArrayList<String> listSingsAnswer;
 
 
     public Game(Context context, int yearMusic){
@@ -104,19 +106,14 @@ public class Game {
             music.setPathMusics(pathMusics);
             music.setImages(images);
 
-
         } catch (JSONException e){
             e.printStackTrace();
         }
-
-        //return buildListSingsAnswer(sing, sings);
     }
 
-    public List<List> buildListSingsAnswer(int musicPosition) {
+    public void buildListSingsAnswer(int musicPosition) {
 
-        List<List> list = new ArrayList<>();
-        List<String> listSingsAnswer = new ArrayList<>(Collections.nCopies(4 , ""));
-        List<String> musicPaths = new ArrayList<>();
+        listSingsAnswer = new ArrayList<>(Collections.nCopies(4 , ""));
 
         placementGoodAnswerSing = rand.nextInt(3);
         actualSong = music.getTitres().get(musicPosition);
@@ -124,20 +121,12 @@ public class Game {
         Log.i("size string", Integer.toString(music.getTitres().size()));
         Log.i("randomGood", Integer.toString(placementGoodAnswerSing));
         Log.i("titres", music.getTitres().toString());
-        //goodAnswer = music.getTitres().get(placementGoodAnswer);
-
-        List<Integer> listPositions = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            listPositions.add(i);
-        }
 
         for (int i =0; i < 4; i++){
 
             if(i != placementGoodAnswerSing){
                 int randomMusic = rand.nextInt(music.getTitres().size());
                 if(!listSingsAnswer.contains(music.getTitres().get(randomMusic))){
-                    musicPaths.add(music.getPathMusics().get(i));
                     listSingsAnswer.set(i, music.getTitres().get(randomMusic));
                 }
                 else{
@@ -146,12 +135,16 @@ public class Game {
             }
             
             Log.i("listsingsAnswer", listSingsAnswer.toString());
-            list.add(listSingsAnswer);
-            list.add(musicPaths);
+
         }
-        return list;
     }
 
+    public List<String> getListSingsAnswer(){
+        return listSingsAnswer;
+    }
+
+
+    @Nullable
     private String loadJSONFromAsset(String jsonPath) {
         String json;
         try {
@@ -172,27 +165,23 @@ public class Game {
     }
 
     public String[] checkIfArtistFound(String artist) {
-        String[] answers = new String[2];
+        String state;
         if(this.artist.equals(artist)){
-            answers[0] = "good";
+            state = "good";
         }else{
-            answers[0] = "false";
-            answers[1] = Integer.toString(placementGoodAnswerSinger);
+            state = "false";
         }
-
-        return answers;
+        return buildAnswerStringArray(state, placementGoodAnswerSinger);
     }
 
     public String[] checkIfSongFound(String song) {
-        String[] answers = new String[2];
+        String state;
         if(actualSong.equals(song)){
-            answers[0] = "good";
+            state = "good";
         }else{
-            answers[0] = "false";
-            answers[1] = Integer.toString(placementGoodAnswerSinger);
+            state = "false";
         }
-
-        return answers;
+        return buildAnswerStringArray(state, placementGoodAnswerSing);
     }
 
     public String getMusicPath(int musicPosition) {
@@ -205,7 +194,7 @@ public class Game {
         return music.getImages().get(musicPosition);
     }
 
-    public int[] getAnswerSinger(){
-        return new int[]{placementGoodAnswerSinger};
+    public String[] buildAnswerStringArray(String state, int placementGoodAnswer){
+        return new String[]{state, Integer.toString(placementGoodAnswer)};
     }
 }
