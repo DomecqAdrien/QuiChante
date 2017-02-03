@@ -13,7 +13,7 @@
     <ImageView
         android:layout_width="600dp"
         android:layout_height="460dp"
-        app:srcCompat="@drawable/television_1970_2"
+        app:srcCompat="@drawable/television_1970"
         android:id="@+id/imageLayoutTv"
         android:layout_above="@+id/imageView"
         android:layout_alignLeft="@+id/imageView"

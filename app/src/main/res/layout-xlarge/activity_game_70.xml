@@ -149,7 +149,6 @@
         android:layout_height="261dp"
         app:srcCompat="@drawable/meuble_1970"
         android:id="@+id/imageView"
-
         android:layout_marginLeft="26dp"
         android:layout_marginStart="26dp"
         android:layout_alignParentBottom="true"
@@ -195,7 +194,6 @@
         android:layout_alignEnd="@+id/buttonState" />
 
     <TextView
-        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonAnswer4"
@@ -206,10 +204,10 @@
         android:layout_alignStart="@+id/imageLayoutTv"
         android:onClick="checkArtistAnswer"
         android:layout_marginBottom="28dp"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:fontFamily="cursive" />
 
     <TextView
-        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonAnswer2"
@@ -217,10 +215,10 @@
         android:layout_alignLeft="@+id/buttonAnswer3"
         android:onClick="checkArtistAnswer"
         android:layout_alignStart="@+id/buttonAnswer3"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:fontFamily="cursive" />
 
     <TextView
-        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonAnswer1"
@@ -228,10 +226,10 @@
         android:layout_alignLeft="@+id/buttonAnswer2"
         android:onClick="checkArtistAnswer"
         android:layout_alignStart="@+id/buttonAnswer2"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:fontFamily="cursive" />
 
     <TextView
-        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonAnswer3"
@@ -240,6 +238,7 @@
         android:layout_below="@+id/buttonAnswer2"
         android:layout_alignLeft="@+id/buttonAnswer4"
         android:layout_alignStart="@+id/buttonAnswer4"
-        android:layout_marginTop="14dp" />
+        android:layout_marginTop="14dp"
+        android:fontFamily="cursive" />
 
 </RelativeLayout>

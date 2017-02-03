@@ -112,11 +112,13 @@ public class Game {
         //return buildListSingsAnswer(sing, sings);
     }
 
-    public List<String> buildListSingsAnswer(int musicPosition) {
+    public List<List> buildListSingsAnswer(int musicPosition) {
 
         Music music = this.music;
+        List<List> list = new ArrayList<>();
 
         List<String> listSingsAnswer = new ArrayList<>(Collections.nCopies(4 , ""));
+        List<String> musicPaths = new ArrayList<>();
 
         placementGoodAnswerSing = rand.nextInt(3);
         listSingsAnswer.set(placementGoodAnswerSing, music.getTitres().get(musicPosition));
@@ -136,6 +138,7 @@ public class Game {
             if(i != placementGoodAnswerSing){
                 int randomMusic = rand.nextInt(music.getTitres().size());
                 if(!listSingsAnswer.contains(music.getTitres().get(randomMusic))){
+                    musicPaths.add(music.getPathMusics().get(i));
                     listSingsAnswer.set(i, music.getTitres().get(randomMusic));
                 }
                 else{
@@ -152,8 +155,10 @@ public class Game {
             //buttonsSongs.get(i).setVisibility(View.VISIBLE);
 
             Log.i("listsingsAnswer", listSingsAnswer.toString());
+            list.add(listSingsAnswer);
+            list.add(musicPaths);
         }
-        return listSingsAnswer;
+        return list;
     }
 
     private String loadJSONFromAsset(String jsonPath) {
@@ -190,6 +195,11 @@ public class Game {
     public String getMusicPath(int musicPosition) {
         Log.i("pathMusic", music.getPathMusics().get(musicPosition));
         return music.getPathMusics().get(musicPosition);
+    }
+
+    public Drawable getImage(int musicPosition) {
+        Log.i("pathMusic", music.getPathMusics().get(musicPosition));
+        return music.getImages().get(musicPosition);
     }
 
     public int[] getAnswerSinger(){

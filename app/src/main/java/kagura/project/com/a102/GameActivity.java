@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
     List<TextView> buttonsSongs;
     List<ImageView> imageSongs;
     ImageView remoteSings;
+    ImageView imageTv;
     int yearMusic;
     //boolean isMusicStarted = false;
     int compteur;
@@ -104,7 +106,9 @@ public class GameActivity extends AppCompatActivity {
 
 
         buttonState = (TextView) findViewById(R.id.buttonState);
+        buttonState.setVisibility(View.INVISIBLE);
         remoteSings = (ImageView) findViewById(R.id.imageRemoteZ);
+        imageTv = (ImageView) findViewById(R.id.imageLayoutTv);
 
         mp = new MediaPlayer();
 
@@ -197,11 +201,14 @@ public class GameActivity extends AppCompatActivity {
                 Log.i("currentMusicPath", currentMusicPath);
                 mp = MediaPlayer.create(this, getResources().getIdentifier(currentMusicPath, "raw", getPackageName()));
 
-                List<String> singsAnswersList = game.buildListSingsAnswer(i);
+                List<List> singsAnswersList = game.buildListSingsAnswer(i);
 
-                for(int j = 0; j < singsAnswersList.size(); j++){
-                    buttonsAnswer.get(j).setText(singsAnswersList.get(j));
+                for(int j = 0; j < singsAnswersList.get(0).size(); j++){
+                    buttonsAnswer.get(j).setText((String) singsAnswersList.get(0).get(j));
                 }
+
+                Drawable ekelele = game.getImage(i);
+                imageTv.setImageDrawable(ekelele);
 
                 Log.i("testButtonSongIds", Integer.toString(view.getId()) + "//" + Integer.toString(buttonsSongs.get(i).getId()));
                 buttonState.setVisibility(View.VISIBLE);
