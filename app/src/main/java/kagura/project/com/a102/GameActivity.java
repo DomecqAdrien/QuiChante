@@ -1,49 +1,39 @@
 package kagura.project.com.a102;
 
-import android.content.Intent;
+
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
-    String goodAnswer;
-    Music music;
+
     Drawable resume;
     Drawable pause;
     MediaPlayer mp;
-    Button buttonNext;
     TextView buttonState;
     List<TextView> buttonsAnswer;
     List<TextView> buttonsSelectionArtist;
     List<TextView> buttonsSongs;
     List<ImageView> imageSongs;
+    ImageView remoteSings;
     int yearMusic;
-    boolean isMusicStarted = false;
+    //boolean isMusicStarted = false;
     int compteur;
-    int random;
-    int goodAnswerButtonPosition;
-    List<String> artistes;
+
+    Game game;
 
 
     @Override
@@ -74,6 +64,8 @@ public class GameActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_game_80);
                 break;
         }
+
+        game = new Game(this, yearMusic);
 
 
 
@@ -112,6 +104,7 @@ public class GameActivity extends AppCompatActivity {
 
 
         buttonState = (TextView) findViewById(R.id.buttonState);
+        remoteSings = (ImageView) findViewById(R.id.imageRemoteZ);
 
         mp = new MediaPlayer();
 
@@ -119,12 +112,8 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         mp.stop();
-        Intent back = new Intent(this, MenuActivity.class);
-        finish();
-        startActivity(back);
-
+        super.onBackPressed();
     }
 
     public void StartMusic(View view) {
@@ -149,70 +138,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void loadGame(int artist){
-
-        try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("musiques" + yearMusic + ".json"));
-            JSONArray jsonArray = obj.getJSONArray("musiques");
-            JSONObject jsonObjArtiste = jsonArray.getJSONObject(artist);
-            //artistes = new ArrayList<>();
-            music = new Music();
-
-            music.setAuteur(jsonObjArtiste.getString("artiste"));
-            JSONArray jsonArrayChansons = jsonObjArtiste.getJSONArray("chansons");
-
-
-            List<String> titres = new ArrayList<>();
-            List<String> pathMusics = new ArrayList<>();
-            List<Drawable> images = new ArrayList<>();
-
-            for(int i = 0; i < jsonArrayChansons.length(); i++){
-                JSONObject jsonObjChansons = jsonArrayChansons.getJSONObject(i);
-                titres.add(jsonObjChansons.getString("titre"));
-                pathMusics.add(jsonObjChansons.getString("path_music"));
-                images.add(getResources().getDrawable(getResources().getIdentifier(jsonObjChansons.getString("path_image"), "drawable", getPackageName())));
-            }
-
-            music.setTitres(titres);
-            music.setPathMusics(pathMusics);
-            music.setImages(images);
-
-
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-
-        Random r = new Random();
-        int placementGoodAnswer = r.nextInt(3);
-        Log.i("size string", Integer.toString(music.getTitres().size()));
-        Log.i("randomGood", Integer.toString(placementGoodAnswer));
-        Log.i("titres", music.getTitres().toString());
-        goodAnswer = music.getTitres().get(placementGoodAnswer);
-
-        for (int i =0; i < 4; i++){
-            if(i == placementGoodAnswer){
-                buttonsAnswer.get(i).setText(goodAnswer);
-            }else{
-                random = r.nextInt(music.getTitres().size());
-                buttonsAnswer.get(i).setText(music.getTitres().get(random));
-                music.getTitres().remove(random);
-            }
-
-            Log.i("random", Integer.toString(random));
-            Log.i("titres", music.getTitres().toString());
-
-
-
-            //imageSongs.get(i).setImageDrawable(music.getImages().get(i));
-            buttonsSongs.get(i).setVisibility(View.VISIBLE);
-        }
-
-
-
-
     }
 
     public void switchArtist(View view) {
-         int artistPosition = 0;
+        int artistPosition;
         if(mp.isPlaying()){
             mp.stop();
             buttonState.setBackground(resume);
@@ -237,13 +166,25 @@ public class GameActivity extends AppCompatActivity {
             case R.id.buttonArtist5:
                 artistPosition = 4;
                 break;
+            default:
+                artistPosition = 0;
+                break;
         }
 
-        loadGame(artistPosition);
+        List<String> artistesAnswers = game.initGameSingers(artistPosition);
+        for(int i = 0; i < artistesAnswers.size(); i++){
+            buttonsAnswer.get(i).setText(artistesAnswers.get(i));
+        }
+
+        //loadGame(artistPosition);
 
     }
 
     public void switchSong(View view) {
+        for(int i = 0; i < 4; i++){
+            buttonsAnswer.get(i).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        }
+
         for (int i =0; i < 4; i++){
             if(view.getId() == buttonsSongs.get(i).getId()){
                 if(mp.isPlaying()){
@@ -251,7 +192,16 @@ public class GameActivity extends AppCompatActivity {
                     buttonState.setBackground(resume);
                     compteur++;
                 }
-                mp = MediaPlayer.create(this, getResources().getIdentifier(music.getPathMusics().get(i), "raw", getPackageName()));
+
+                String currentMusicPath = game.getMusicPath(i);
+                Log.i("currentMusicPath", currentMusicPath);
+                mp = MediaPlayer.create(this, getResources().getIdentifier(currentMusicPath, "raw", getPackageName()));
+
+                List<String> singsAnswersList = game.buildListSingsAnswer(i);
+
+                for(int j = 0; j < singsAnswersList.size(); j++){
+                    buttonsAnswer.get(j).setText(singsAnswersList.get(j));
+                }
 
                 Log.i("testButtonSongIds", Integer.toString(view.getId()) + "//" + Integer.toString(buttonsSongs.get(i).getId()));
                 buttonState.setVisibility(View.VISIBLE);
@@ -260,22 +210,19 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public String loadJSONFromAsset(String jsonPath) {
-        String json;
-        try {
-            InputStream is = getAssets().open(jsonPath);
-            int size = is.available();
-            byte[] buffer = new byte[size];
+    public void checkArtistAnswer(View view) {
+        TextView buttonAnswer = (TextView) view;
+        String buttonAnswerText = buttonAnswer.getText().toString();
+        String[] answers = game.checkIfArtistFound(buttonAnswerText);
 
-            is.read(buffer);
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
+        if(answers[0].equals("good")){
+            view.setBackgroundColor(getResources().getColor(R.color.green));
+        }else{
+            view.setBackgroundColor(getResources().getColor(R.color.red));
+             buttonsAnswer.get(Integer.parseInt(answers[1])).setBackgroundColor(getResources().getColor(R.color.green));
         }
-        Log.i("json", json);
-        return json;
+        remoteSings.setVisibility(View.VISIBLE);
+
+        game.initGameSings();
     }
 }
