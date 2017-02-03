@@ -194,6 +194,7 @@ public class GameActivity extends AppCompatActivity {
                 }
 
                 String currentMusicPath = game.getMusicPath(i);
+                Log.i("currentMusicPath", currentMusicPath);
                 mp = MediaPlayer.create(this, getResources().getIdentifier(currentMusicPath, "raw", getPackageName()));
 
                 List<String> singsAnswersList = game.buildListSingsAnswer(i);

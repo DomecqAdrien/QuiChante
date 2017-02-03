@@ -205,18 +205,8 @@
         android:layout_alignLeft="@+id/imageLayoutTv"
         android:layout_alignStart="@+id/imageLayoutTv"
         android:onClick="checkArtistAnswer"
-        android:layout_marginBottom="28dp" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonAnswer3"
-        android:layout_above="@+id/buttonAnswer4"
-        android:layout_alignLeft="@+id/buttonAnswer4"
-        android:layout_alignStart="@+id/buttonAnswer4"
-        android:onClick="checkArtistAnswer"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="28dp"
+        android:textSize="30sp" />
 
     <TextView
         android:text="TextView"
@@ -226,7 +216,8 @@
         android:layout_alignBottom="@+id/imageRemote"
         android:layout_alignLeft="@+id/buttonAnswer3"
         android:onClick="checkArtistAnswer"
-        android:layout_alignStart="@+id/buttonAnswer3" />
+        android:layout_alignStart="@+id/buttonAnswer3"
+        android:textSize="30sp" />
 
     <TextView
         android:text="TextView"
@@ -236,6 +227,19 @@
         android:layout_alignBottom="@+id/buttonState"
         android:layout_alignLeft="@+id/buttonAnswer2"
         android:onClick="checkArtistAnswer"
-        android:layout_alignStart="@+id/buttonAnswer2" />
+        android:layout_alignStart="@+id/buttonAnswer2"
+        android:textSize="30sp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonAnswer3"
+        android:onClick="checkArtistAnswer"
+        android:textSize="30sp"
+        android:layout_below="@+id/buttonAnswer2"
+        android:layout_alignLeft="@+id/buttonAnswer4"
+        android:layout_alignStart="@+id/buttonAnswer4"
+        android:layout_marginTop="14dp" />
 
 </RelativeLayout>
