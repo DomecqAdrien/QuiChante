@@ -185,7 +185,7 @@
         android:text="Jouer"
         android:fontFamily="sans-serif-condensed"
         android:textStyle="bold"
-        android:onClick="StartMusic"
+        android:onClick="setMusicState"
         android:id="@+id/buttonState"
         android:visibility="visible"
         android:layout_below="@+id/imageRemoteZ"

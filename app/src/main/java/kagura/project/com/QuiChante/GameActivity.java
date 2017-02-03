@@ -1,6 +1,5 @@
 package kagura.project.com.QuiChante;
 
-
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
@@ -16,24 +15,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class GameActivity extends AppCompatActivity {
 
 
-    Drawable resume;
-    Drawable pause;
+    String resume, pause;
     MediaPlayer mp;
     TextView buttonState;
-    List<TextView> buttonsAnswer;
-    List<TextView> buttonsSelectionArtist;
-    List<TextView> buttonsSongs;
-    List<ImageView> imageSongs;
-    ImageView remoteSings;
-    ImageView imageTv;
+    List<TextView> buttonsAnswer, buttonsSelectionArtist, buttonsSongs;
+    ImageView remoteSings, imageTv;
     int yearMusic;
-    //boolean isMusicStarted = false;
-    int compteur;
+    boolean isSongGameStarted = false;
 
     Game game;
 
@@ -47,6 +39,7 @@ public class GameActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        //noinspection ConstantConditions
         getSupportActionBar().hide();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -69,46 +62,30 @@ public class GameActivity extends AppCompatActivity {
 
         game = new Game(this, yearMusic);
 
+        resume = getString(R.string.resume);
+        pause = getString(R.string.pause);
 
-
-
-        resume = getResources().getDrawable(android.R.drawable.ic_media_play);
-        pause = getResources().getDrawable(android.R.drawable.ic_media_pause);
 
         buttonsAnswer = new ArrayList<>();
+        buttonsSongs = new ArrayList<>();
 
-        buttonsAnswer.add((TextView) findViewById(R.id.buttonAnswer1));
-        buttonsAnswer.add((TextView) findViewById(R.id.buttonAnswer2));
-        buttonsAnswer.add((TextView) findViewById(R.id.buttonAnswer3));
-        buttonsAnswer.add((TextView) findViewById(R.id.buttonAnswer4));
+        for(int i = 1; i < 5; i++){
+            buttonsAnswer.add((TextView) findViewById(getResources().getIdentifier("buttonAnswer" + i, "id", getPackageName())));
+            buttonsSongs.add((TextView) findViewById(getResources().getIdentifier("buttonChanson" + i, "id", getPackageName())));
+        }
 
         buttonsSelectionArtist = new ArrayList<>();
 
-        buttonsSelectionArtist.add((TextView) findViewById(R.id.buttonArtist1));
-        buttonsSelectionArtist.add((TextView) findViewById(R.id.buttonArtist2));
-        buttonsSelectionArtist.add((TextView) findViewById(R.id.buttonArtist3));
-        buttonsSelectionArtist.add((TextView) findViewById(R.id.buttonArtist4));
-        buttonsSelectionArtist.add((TextView) findViewById(R.id.buttonArtist5));
-
-        buttonsSongs = new ArrayList<>();
-
-        buttonsSongs.add((TextView) findViewById(R.id.buttonChanson1));
-        buttonsSongs.add((TextView) findViewById(R.id.buttonChanson2));
-        buttonsSongs.add((TextView) findViewById(R.id.buttonChanson3));
-        buttonsSongs.add((TextView) findViewById(R.id.buttonChanson4));
-
-        imageSongs = new ArrayList<>();
-
-        /*imageSongs.add((ImageView) findViewById(R.id.imageChanson1));
-        imageSongs.add((ImageView) findViewById(R.id.imageChanson2));
-        imageSongs.add((ImageView) findViewById(R.id.imageChanson3));
-        imageSongs.add((ImageView) findViewById(R.id.imageChanson4)); */
-
+        for(int i = 1; i < 6; i++){
+            buttonsSelectionArtist.add((TextView) findViewById(getResources().getIdentifier("buttonArtist" + i, "id", getPackageName())));
+        }
 
         buttonState = (TextView) findViewById(R.id.buttonState);
-        buttonState.setVisibility(View.INVISIBLE);
         remoteSings = (ImageView) findViewById(R.id.imageRemoteZ);
         imageTv = (ImageView) findViewById(R.id.imageLayoutTv);
+
+        hideSongsRemote();
+        hideMusicStateButton();
 
         mp = new MediaPlayer();
 
@@ -116,86 +93,51 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        mp.stop();
+        if(mp.isPlaying()){
+            mp.stop();
+        }
         super.onBackPressed();
     }
 
-    public void StartMusic(View view) {
-        switch (compteur % 2){
-            case 1:
-                mp.pause();
-                buttonState.setText("Jouer");
-                break;
-            case 0:
-                mp.start();
-                buttonState.setText("Pause");
-                break;
+    public void setMusicState(View view) {
+        if(mp.isPlaying()){
+            pauseMusic();
+        }else{
+            startMusic();
         }
-        compteur++;
     }
 
     public void response(View view) {}
 
-    public void nextQuestion(View view) {
-        mp.stop();
-        //loadGame(artist);
-    }
 
-    private void loadGame(int artist){
-    }
 
     public void switchArtist(View view) {
-        int artistPosition;
-        if(mp.isPlaying()){
-            mp.stop();
-            buttonState.setBackground(resume);
-            compteur++;
-        }
+        isSongGameStarted = false;
+        clearTv();
+        clearButtons();
+        pauseMusic();
+
         if(buttonState.getVisibility() == View.VISIBLE){
-            buttonState.setVisibility(View.INVISIBLE);
-        }
-        switch (view.getId()){
-            case R.id.buttonArtist1:
-                artistPosition = 0;
-                break;
-            case R.id.buttonArtist2:
-                artistPosition = 1;
-                break;
-            case R.id.buttonArtist3:
-                artistPosition = 2;
-                break;
-            case R.id.buttonArtist4:
-                artistPosition = 3;
-                break;
-            case R.id.buttonArtist5:
-                artistPosition = 4;
-                break;
-            default:
-                artistPosition = 0;
-                break;
+            hideMusicStateButton();
         }
 
+        int artistPosition = getArtistPosition(view.getId());
         List<String> artistesAnswers = game.initGameSingers(artistPosition);
         for(int i = 0; i < artistesAnswers.size(); i++){
             buttonsAnswer.get(i).setText(artistesAnswers.get(i));
         }
-
-        //loadGame(artistPosition);
-
     }
 
+
+
     public void switchSong(View view) {
-        for(int i = 0; i < 4; i++){
-            buttonsAnswer.get(i).setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        }
+        isSongGameStarted = true;
+        clearButtons();
+        showMusicStateButton();
 
         for (int i =0; i < 4; i++){
             if(view.getId() == buttonsSongs.get(i).getId()){
-                if(mp.isPlaying()){
-                    mp.stop();
-                    buttonState.setBackground(resume);
-                    compteur++;
-                }
+                pauseMusic();
 
                 String currentMusicPath = game.getMusicPath(i);
                 Log.i("currentMusicPath", currentMusicPath);
@@ -211,16 +153,20 @@ public class GameActivity extends AppCompatActivity {
                 imageTv.setImageDrawable(ekelele);
 
                 Log.i("testButtonSongIds", Integer.toString(view.getId()) + "//" + Integer.toString(buttonsSongs.get(i).getId()));
-                buttonState.setVisibility(View.VISIBLE);
-
+                //buttonState.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    public void checkArtistAnswer(View view) {
+    public void checkAnswer(View view) {
         TextView buttonAnswer = (TextView) view;
         String buttonAnswerText = buttonAnswer.getText().toString();
-        String[] answers = game.checkIfArtistFound(buttonAnswerText);
+        String[] answers;
+        if(!isSongGameStarted){
+            answers = checkArtistAnswers(buttonAnswerText);
+        }else{
+            answers = checkSongAnswers(buttonAnswerText);
+        }
 
         if(answers[0].equals("good")){
             view.setBackgroundColor(getResources().getColor(R.color.green));
@@ -228,8 +174,85 @@ public class GameActivity extends AppCompatActivity {
             view.setBackgroundColor(getResources().getColor(R.color.red));
              buttonsAnswer.get(Integer.parseInt(answers[1])).setBackgroundColor(getResources().getColor(R.color.green));
         }
-        remoteSings.setVisibility(View.VISIBLE);
+    }
 
+    private String[] checkSongAnswers(String buttonAnswerText) {
+        return game.checkIfSongFound(buttonAnswerText);
+    }
+
+    private String[] checkArtistAnswers(String buttonAnswerText) {
+        showSongsRemote();
         game.initGameSings();
+        return game.checkIfArtistFound(buttonAnswerText);
+    }
+
+    public int getArtistPosition(int idButtonArtist){
+        int artistPositionInJson;
+        switch (idButtonArtist){
+            case R.id.buttonArtist1:
+                artistPositionInJson = 0;
+                break;
+            case R.id.buttonArtist2:
+                artistPositionInJson = 1;
+                break;
+            case R.id.buttonArtist3:
+                artistPositionInJson = 2;
+                break;
+            case R.id.buttonArtist4:
+                artistPositionInJson = 3;
+                break;
+            case R.id.buttonArtist5:
+                artistPositionInJson = 4;
+                break;
+            default:
+                artistPositionInJson = 0;
+                break;
+        }
+        return artistPositionInJson;
+    }
+
+    public void clearButtons(){
+        for(int i = 0; i < 4; i++){
+            buttonsAnswer.get(i).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        }
+    }
+
+    public void clearTv(){
+        imageTv.setImageDrawable(getResources().getDrawable(getResources().getIdentifier("television_19" + yearMusic, "drawable", getPackageName())));
+    }
+
+    public void hideSongsRemote(){
+        remoteSings.setVisibility(View.INVISIBLE);
+        for(int i =0; i < buttonsSongs.size(); i++){
+            buttonsSongs.get(i).setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void showSongsRemote(){
+        remoteSings.setVisibility(View.VISIBLE);
+        for(int i =0; i < buttonsSongs.size(); i++){
+            buttonsSongs.get(i).setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideMusicStateButton(){
+        buttonState.setVisibility(View.INVISIBLE);
+    }
+
+    public void showMusicStateButton(){
+        buttonState.setVisibility(View.VISIBLE);
+    }
+
+    public void startMusic(){
+        buttonState.setText(pause);
+        mp.start();
+    }
+
+    public void pauseMusic(){
+        if(mp.isPlaying()){
+            buttonState.setText(resume);
+            mp.pause();
+        }
+
     }
 }

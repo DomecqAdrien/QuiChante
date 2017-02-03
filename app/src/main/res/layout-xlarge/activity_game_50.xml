@@ -210,7 +210,6 @@
         android:textAlignment="center"
         android:onClick="response"
         android:id="@+id/buttonAnswer4"
-
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/buttonAnswer2"
@@ -235,7 +234,7 @@
         android:text="Jouer"
         android:fontFamily="sans-serif-condensed"
         android:textStyle="bold"
-        android:onClick="StartMusic"
+        android:onClick="setMusicState"
         android:id="@+id/buttonState"
         android:visibility="visible"
         android:layout_below="@+id/imageRemoteZ"

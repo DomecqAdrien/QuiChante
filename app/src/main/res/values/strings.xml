@@ -9,4 +9,6 @@
     <string name="next">Suivant</string>
     <string name="remote">remote</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="resume">Jouer</string>
+    <string name="pause">Pause</string>
 </resources>

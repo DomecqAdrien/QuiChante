@@ -25,7 +25,7 @@ public class Game {
     private int placementGoodAnswerSinger;
     private int placementGoodAnswerSing;
     private int artistPositionInJson;
-
+    private String actualSong;
 
 
     public Game(Context context, int yearMusic){
@@ -114,13 +114,12 @@ public class Game {
 
     public List<List> buildListSingsAnswer(int musicPosition) {
 
-        Music music = this.music;
         List<List> list = new ArrayList<>();
-
         List<String> listSingsAnswer = new ArrayList<>(Collections.nCopies(4 , ""));
         List<String> musicPaths = new ArrayList<>();
 
         placementGoodAnswerSing = rand.nextInt(3);
+        actualSong = music.getTitres().get(musicPosition);
         listSingsAnswer.set(placementGoodAnswerSing, music.getTitres().get(musicPosition));
         Log.i("size string", Integer.toString(music.getTitres().size()));
         Log.i("randomGood", Integer.toString(placementGoodAnswerSing));
@@ -145,15 +144,7 @@ public class Game {
                     i--;
                 }
             }
-
-            //Log.i("random", Integer.toString(random));
-            //Log.i("titres", music.getTitres().toString());
-
-
-
-            //imageSongs.get(i).setImageDrawable(music.getImages().get(i));
-            //buttonsSongs.get(i).setVisibility(View.VISIBLE);
-
+            
             Log.i("listsingsAnswer", listSingsAnswer.toString());
             list.add(listSingsAnswer);
             list.add(musicPaths);
@@ -181,8 +172,20 @@ public class Game {
     }
 
     public String[] checkIfArtistFound(String artist) {
-        String[] answers = new String[3];
+        String[] answers = new String[2];
         if(this.artist.equals(artist)){
+            answers[0] = "good";
+        }else{
+            answers[0] = "false";
+            answers[1] = Integer.toString(placementGoodAnswerSinger);
+        }
+
+        return answers;
+    }
+
+    public String[] checkIfSongFound(String song) {
+        String[] answers = new String[2];
+        if(actualSong.equals(song)){
             answers[0] = "good";
         }else{
             answers[0] = "false";
