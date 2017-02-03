@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="kagura.project.com.a102.MenuActivity">
+    tools:context="kagura.project.com.QuiChante.MenuActivity">
 
     <ImageView
         app:srcCompat="@drawable/bouton_1980_2"
